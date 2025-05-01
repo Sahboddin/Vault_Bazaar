@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+
+<div class="container md-5">
+    <h2 class="tex-center"><strong>Your Orders</strong></h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mt-5" style="height: auto"> 
+                <div class = "table-responsive ">
+                    <table class = "table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Order Id</th>
+                                <th scope="col">Products</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Tax</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                    <th scope="row">{{ forloop.counter }}</th> 
+                                    <td><a href="#">{{ order.order_number }}</a> </td> 
+                                    <td>
+                                        {% for order_product in order_products %}
+                                        {% if order.order_number == order_product.order.order_number %}
+                                        {{ order_product.product.product_name }}<br>
+                                        
+                                        
+                                        {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                    {% for order_product in order_products %}
+                                    {% if order.order_number == order_product.order.order_number %}
+                                    {{ order_product.quantity }} X {{order_product.product.price}} <br>
+                                    
+                                    
+                                    {% endif %}
+                                    {% endfor %}
+                                    </td>
+                                    <td><a href="#">{{ order.tax }}</a> </td> 
+                                    <td><a href="#">{{ order.order_total }}</a> </td> 
+                                    <td><span class="badge badge-primary">Processing Your Order</span></td>
+                                   
+                                </tr>
+                                {%endfor%}
+                            </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-md-12 my-5 tex-center">
+            <a href="{% url 'home' %}">Back To Home</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock body %}
